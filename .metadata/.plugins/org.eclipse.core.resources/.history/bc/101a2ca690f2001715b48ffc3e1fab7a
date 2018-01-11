@@ -1,0 +1,18 @@
+package teel;
+
+public class ShortestPalindrome {
+	public String shortestPalindrome(String s) {
+		int i = 0, j = s.length(), start = 0;
+		StringBuilder sb = new StringBuilder();
+		sb.append(s);
+		while (i <= s.length()/2) {
+			if  (s.indexOf(i) == s.indexOf(j)) {
+				i++; j--;
+			} else {
+				sb.insert(start, s.indexOf(j));
+				j--; start++; i++;
+			}
+		}
+		return sb.toString();
+    }
+}

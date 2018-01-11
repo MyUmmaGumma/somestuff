@@ -1,0 +1,8 @@
+package teel;
+
+public class ShortestPalindrome {
+	public String shortestPalindrome(String s) {
+		//Find the midpoint from which we can proceed leftwards
+		int len = s.length();
+    }
+}

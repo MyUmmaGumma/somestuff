@@ -1,0 +1,82 @@
+package teel;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+public class LowestCommonAncestor {
+	
+		
+		private TreeNode newTreeNode(int num)
+		{
+			TreeNode newnode = new TreeNode(num);
+			newnode.left = newnode.right = null;
+			return newnode;
+		}
+		
+		private TreeNode insert(int num, TreeNode root)
+		{
+			TreeNode newNode = newTreeNode(num);
+			if (root == null) {
+				root = newNode;
+				return root;
+			}
+			if (root.val < num) {
+				root.right = insert(num, root.right);
+			} else {
+				root.left = insert(num, root.left);
+			}
+			return root;
+		}
+		
+		
+		private TreeNode searchInt(TreeNode t, int num, LinkedList<TreeNode> ls)
+		{
+			if (t == null) {
+				return null;
+			} else if (t.val == num) {
+				return t;
+			} else {
+				ls.add(t);
+				if (searchInt(t.left, num, ls) != null) {
+					return t.left;
+				}
+				if (searchInt(t.right, num, ls) != null) {
+					return t.right;
+				}
+				ls.removeLast();
+			}
+		}
+		
+		LinkedList<TreeNode> search(int num)
+		{
+			LinkedList<TreeNode> n = new LinkedList<TreeNode>();
+			searchInt(root, num, n);
+			return null;
+		}
+		
+		public void inorder(TreeNode node)
+		{
+			if (node == null) {
+				return;
+			}
+			inorder(node.left);
+			System.out.print(node.val + " ");
+			inorder(node.right);
+	 	}
+		
+		public static void main(String []args)
+		{
+			int []a = {8,5,3,4,6,10,7};
+			TreeNode root = null;
+			CountCompleteTreeNodes lot = new CountCompleteTreeNodes();
+			for (int i = 0; i < a.length;i++) {
+				root = lot.insert(a[i], root);
+			}
+			lot.inorder(root);
+			System.out.println("Level order traversal follows");
+			int c = lot.levelOrder(root);
+			System.out.println(c);
+		}
+	}
+
+}

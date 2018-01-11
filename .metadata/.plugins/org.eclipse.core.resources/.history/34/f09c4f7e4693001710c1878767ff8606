@@ -1,0 +1,28 @@
+package teel;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+public class CountCompleteTreeNodes {
+	
+	public List<List<Integer>> levelOrderTraversal(LinkedList<TreeNode> ll, int curr)
+	{
+		List<List<Integer>> lli = new ArrayList<List<Integer>>();
+		while(!ll.isEmpty()) {
+			List<Integer> li = new ArrayList<Integer>();
+			int size = ll.size();
+		
+		return lli;
+	}
+	
+	public int levelOrder(TreeNode root) {
+		LinkedList<TreeNode> ll = new LinkedList<TreeNode>();
+		if (root == null) {
+			return 0;
+		}
+		ll.add(root);
+		return levelOrderTraversal(ll, 0);
+    }
+	
+}
