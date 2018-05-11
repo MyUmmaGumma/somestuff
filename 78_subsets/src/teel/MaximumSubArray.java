@@ -9,11 +9,7 @@ public class MaximumSubArray {
     			running = nums[i];
     		} else {
     			running = running + nums[i];
-    		}
-    		//if (running < 0) {
-    			//running = 0;
-    		//}
-    		
+    		}   		
     		if (max < running) {
     			max = running;
     		}

@@ -9,6 +9,7 @@ public class TwoSum4 {
 		if (s.contains(k- root.val) == true) {
 			return true;
 		}
+		s.add(root.val);
 		if (root.left != null) {
 			boolean res = find_int(root.left, s, k);
 			if (res == true) {

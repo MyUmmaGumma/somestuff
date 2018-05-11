@@ -14,8 +14,8 @@ package teel;
  *    that we are going to overrun such that the inner loop invariant is violated. It could be
  *    that there are multiple occurrences of a single character in the current window of t 
  *    that is contained in s, in which case we should violate the inner loop invariant only
- *    when the current window moves past one such occurrence such that not all characters of t
- *    are contained in anymore
+ *    when the current window moves past the last occurrence such of a character in T such that
+ *    not all characters of t are contained in S anymore
  * 2. We maintain at most a single character difference between t and s at the time of exiting 
  *    the inner loop which is what we want to do because we are advancing by a single character
  *    at a time in the outer loop. (It is also going to be the occurrence of that same character

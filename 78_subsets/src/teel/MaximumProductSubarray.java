@@ -2,51 +2,19 @@ package teel;
 
 public class MaximumProductSubarray {
 	 public int maxSubArray(int[] nums) {
-	    	int max = Integer.MIN_VALUE,running = 0, negative = 0;
-	    	for (int i = 0; i < nums.length; i++) {
-	    		if (nums[i] < 0) {
-	    			if (negative == 0) {
-	    				negative = nums[i];
-	    				//running *= nums[i];
-	    				if (max < negative) {
-	        				max = negative;	
-	        			}
-	    				
-	    				continue;
-	    			} else {
-	    				if (running > 0 ) {
-	    					running = running * negative * nums[i];
-	    				} else {
-	    					running = negative * nums[i];;
-	    				}
-	    				negative = 0;
-	    				if (max < running) {
-		    				max = running;	
-		    			}
-	    			}
-	    		} else if (nums[i] == 0) {
-	    			if (max < running) {
-	    				max = running;	
-	    			}
-	    			running = 0;
-					negative = 0;
-					continue;
-	    		} else {
-	    			if (running == 0) {
-	    				running = nums[i];
-	    			} else {
-	    				if (negative != 0) {
-	    					running = running * nums[i];
-	    				}
-	    			}
-	    			if (max < running) {
-	    				max = running;	
-	    			}
-	    		}
-	    		
-	    	}
-	        return max;
-	    }
+		 int imax, imin, ret, i;
+		 imax = imin = ret = nums[0];
+		 
+		 for (i = 1; i < nums.length; i++) {
+			 if (nums[i] < 0) {
+				 int temp = imax; imax = imin; imin = temp;
+			 }
+			 imax = Math.max(nums[i], imax*nums[i]);
+			 imin = Math.min(nums[i], imin*nums[i]);
+			 ret = Math.max(ret, imax);
+		 }
+		 return ret;
+	 }
 	    
 	    public static void main(String []args) {
 	    	MaximumProductSubarray msa = new MaximumProductSubarray();

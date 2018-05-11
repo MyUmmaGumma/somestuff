@@ -34,7 +34,7 @@ public class Pemutations2 {
 	public static void main(String []args)
 	{
 		Pemutations2 p2 = new Pemutations2();
-		int []nums = {1,1,2};
+		int []nums = {0,1};
 		List<List<Integer>> lli = p2.permuteUnique(nums);
 		for (List<Integer> li : lli) {
 			for (Integer i : li) {

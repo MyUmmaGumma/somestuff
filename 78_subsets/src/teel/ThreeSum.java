@@ -1,6 +1,7 @@
 package teel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class ThreeSum {
-	Set<String> ss = new HashSet<String>();
+	/*Set<String> ss = new HashSet<String>();
 	
 	public class TwoInteger {
 		Integer i1;Integer i2; Integer i3; String unique;
@@ -95,7 +96,44 @@ public class ThreeSum {
 			}
 		}
 		return lli;
-	}
+	} */
+	
+	
+	public List<List<Integer>> threeSum(int[] nums) {
+		List<List<Integer>> lli = new ArrayList<List<Integer>>();
+		if (nums.length <= 2) {
+			return lli;
+		}
+		Arrays.sort(nums);
+		for (int i = 0; i < nums.length; i++) {
+			if (i - 1 >= 0 && nums[i] == nums[i-1]) {
+				continue;
+			}
+			
+			int lo = i + 1, hi = nums.length -1;
+			while (lo < hi) {
+				int sum = nums[i] + nums[lo] + nums[hi];
+				if (sum == 0) {
+					lli.add(Arrays.asList(nums[i], nums[lo], nums[hi]));
+					//Remove duplicates
+					while (lo + 1 < hi && nums[lo] == nums[lo+1]) {
+						lo++;
+					}
+					while (lo < hi-1 && nums[hi] == nums[hi-1]) {
+						hi--;
+					}
+					lo++;
+					hi--;
+				} else if (sum < 0) {
+					lo++;
+				} else if (sum > 0) {
+					hi--;
+				}
+			}
+		}
+		
+		return lli;
+    }
 	
 	public static void main(String []args)
 	{

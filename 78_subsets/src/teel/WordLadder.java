@@ -8,13 +8,13 @@ import java.util.Set;
 
 public class WordLadder {
 	  
-	public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+	/*public int ladderLength(String beginWord, String endWord, List<String> wordList) {
 		List<String> queue = new LinkedList<String>();
 		Set<String> visited = new HashSet<String>();
 		queue.add(beginWord);
 		visited.add(beginWord);
 		
-		int level = 0;
+		int level = 1;
 		
 		while (!queue.isEmpty()) {
 			String candidate = queue.remove(0);
@@ -28,7 +28,7 @@ public class WordLadder {
 					
 					if (wordList.contains(s) && !visited.contains(s)) {
 						if (s.contentEquals(endWord)) {
-							return level+1;
+							return level;
 						}
 						queue.add(s);
 						visited.add(s);
@@ -38,16 +38,32 @@ public class WordLadder {
 			level++;
 		}
 		return 0;
-    }
-	  
-	  public static void main(String []args)
-	  {
-		  WordLadder wl = new WordLadder();
-		  List<String> ls = new ArrayList<>();
-		  ls.add("cat");ls.add("rat");
-		  ls.add("car");ls.add("tat");
-
-		
-		  System.out.println(wl.ladderLength("cat", "rot", ls));
-	  }
+    }*/
+	public int ladderLength(String beginWord, String endWord, List<String> wordDict) {
+		HashSet<String> curr = new HashSet<>();
+		curr.add(beginWord);
+		wordDict.add(endWord);
+		int level = 1;
+		while (!curr.contains(endWord)) {
+			HashSet<String> reachable = new HashSet<>();
+			for (String each : curr) {
+				
+				for (int i = 0; i < each.length(); i++) {
+					char []c = each.toCharArray();
+					for (char ch = 'a'; ch <= 'z'; ch++) {
+						c[i] = ch;
+						String target = String.valueOf(c);
+						if (wordDict.contains(target)) {
+							reachable.add(target);
+							wordDict.remove(target);
+						}
+					}
+				}
+			}
+			level++;
+			if (reachable.size() == 0) return 0;
+			curr = reachable;
+		}
+		return level;
+	}
 }

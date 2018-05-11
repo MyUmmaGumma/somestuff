@@ -30,42 +30,7 @@ public class LowestCommonAncestor {
 		}
 		
 		
-		private boolean searchInt(TreeNode t, int num, LinkedList<TreeNode> ls)
-		{
-			/*
-			if (t == null) {
-				return null;
-			} else if (t.val == num) {
-				ls.add(t);
-				return t;
-			} else {
-				ls.add(t);
-				if (searchInt(t.left, num, ls) != null) {
-					return t.left;
-				}	
-				if (searchInt(t.right, num, ls) != null) {
-					return t.right;
-				}
-				ls.removeLast();
-				return null;
-			} */
-				return false;
-		}
-		
-		LinkedList<TreeNode> search(int num)
-		{
-			LinkedList<TreeNode> path1 = new LinkedList<TreeNode>();
-			LinkedList<TreeNode> path2 = new LinkedList<TreeNode>();
-			//n.add(root);
-			/*
-			searchInt(root, num, path1, path2);
-			System.out.println("-----Path-----");
-			for (TreeNode t : n) {
-				System.out.println(t.val);
-			}
-			return n; */
-			return null;
-		}
+	
 		
 		public TreeNode str2tree(String s) {
 		    if (s == null || s.length() == 0) return null;
@@ -111,12 +76,17 @@ public class LowestCommonAncestor {
 		}
 		
 		public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-	        if (p == null || root == null || q == null) {
-	        	return null;
-	        }
-	        LinkedList<TreeNode> t1 = search(p.val);
-			LinkedList<TreeNode> t2 = search(q.val);
-			return findcommon(t1, t2);
+			if (p.val < root.val && q.val < root.val) {
+				root = root.left;
+			}
+			if (p.val > root.val && q.val > root.val) {
+				root = root.right;
+			}
+			if (p.val < root.val && q.val > root.val || 
+					(p.val > root.val && q.val < root.val)) {
+				return root;
+			}
+			return lowestCommonAncestor(root, p, q);
 	    }
 		
 		public static void main(String []args)
@@ -129,9 +99,8 @@ public class LowestCommonAncestor {
 				LowestCommonAncestor.root = lot.str2tree(str);
 			}
 			lot.inorder(LowestCommonAncestor.root);
-			LinkedList<TreeNode> t1 = lot.search(2);
-			LinkedList<TreeNode> t2 = lot.search(1);
-			System.out.println("The common node is " + (lot.findcommon(t1, t2)).val);
+		
+			
 		}
 
 }

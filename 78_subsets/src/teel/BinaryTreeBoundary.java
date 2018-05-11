@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 public class BinaryTreeBoundary {
-	public List<Integer> boundaryOfBinaryTree(TreeNode root) {
+	/*public List<Integer> boundaryOfBinaryTree(TreeNode root) {
 		List<TreeNode> q = new LinkedList<TreeNode>();
 		List<TreeNode> leaves = new LinkedList<TreeNode>();
 		List<Integer> li = new ArrayList<Integer>();
@@ -53,5 +54,76 @@ public class BinaryTreeBoundary {
 			}
 		}
 		return li;
-    }
+    }*/
+	
+	public boolean isLeaf(TreeNode t)
+	{
+		if (t.left == null &&  t.right == null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void addLeaves(List<Integer> res , TreeNode t)
+	{
+		
+		if (isLeaf(t)) {
+			res.add(t.val);
+			return;
+		}
+		if (t.left != null) {
+			addLeaves(res, t.left);
+		}
+		if (t.right != null) {
+			addLeaves(res, t.right);
+		}
+	}
+	
+	public List<Integer> boundaryOfBinaryTree(TreeNode root) {
+		List<Integer> res = new ArrayList<Integer>();
+		
+		if (root == null) {
+			return res;
+		}
+		
+		// Need to add root if not leaf - addLeaves will add root
+		if (!isLeaf(root)) {
+			res.add(root.val);
+		}
+		
+		TreeNode t = root.left;
+		//Left boundary
+		while (t != null) {
+			if (isLeaf(t) == false) {
+				res.add(t.val);
+			}
+			if (t.left != null) {
+				t  = t.left;
+			} else {
+				t = t.right;
+			}
+		}
+		
+		t = root;
+		//All leaves
+		addLeaves(res, t); 
+		
+		t = root.right;
+		//Right boundary - add leaves in reverse order so use stack
+		Stack<Integer> stk = new Stack<>();
+		while (t != null) {
+			if (isLeaf(t) == false) {
+				stk.push(t.val);
+			} 
+			if (t.right != null) {
+				t  = t.right;
+			} else {
+				t = t.left;
+			}
+		}
+		while (!stk.isEmpty()) {
+			res.add(stk.pop());
+		}
+		return res;
+	}
 }

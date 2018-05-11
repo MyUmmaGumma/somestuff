@@ -1,39 +1,31 @@
 package teel;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class KthSmallestBST {
-	 private int kthSmallest_int(TreeNode root, int k, List <Integer> vals) {
-		 if (root == null) {
-			 return Integer.MAX_VALUE;
+	 private void kthSmallest_int(TreeNode root, int k, List <Integer> vals) {
+		 if (k == vals.size() || root == null) {
+			 return;
 		 } else {
-			 	if (root.left == null && root.right == null) {
-			 		vals.add(root.val);
-			 		if (k == vals.size()) {
-			 			return vals.size();
-			 		} else {
-			 			return Integer.MAX_VALUE;
-			 		}
-				}
+			 kthSmallest_int(root.left, k, vals);
+			 if (k > vals.size()) {
+				 vals.add(root.val);
+			 } else {
+				 return;
 			 }
-			 int x = kthSmallest_int(root.left, k, vals);
-			 if (x != Integer.MAX_VALUE) {
-				 return x;
-			 }
-			 vals.add(root.val);
 			 if (k == vals.size()) {
-				 return root.val;
+				 return;
 			 }
-			 int y = kthSmallest_int(root.right, k, vals);
-			 if (y != Integer.MAX_VALUE) {
-				 return y;
-			 }
-	return Integer.MAX_VALUE;
+			 kthSmallest_int(root.right, k, vals);
+		 }
 	 }
+	 
 	 public int kthSmallest(TreeNode root, int k) {
-		  List<Integer> li = new LinkedList<Integer>();
-	      return kthSmallest_int(root, k, li);
+		  List<Integer> li = new ArrayList<Integer>();
+	      kthSmallest_int(root, k, li);
+	      return li.remove(li.size()-1);
 	 }
 	 
 
@@ -69,7 +61,7 @@ public class KthSmallestBST {
 			for (int i = 0; i < a.length;i++) {
 				root = lot.insert(a[i], root);
 			}
-			 int i = lot.kthSmallest(root,3);
+			 int i = lot.kthSmallest(root,1);
 			 System.out.println(i);
 		}
 }
